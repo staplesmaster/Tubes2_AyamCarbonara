@@ -54,7 +54,16 @@ func And(selectors ...Selector) Selector {
 	}
 }
 
-func AttributeSelector(key, value string) Selector {
+func HasAttributeSelector(key string) Selector {
+	return func(node *model.DOMNode) bool {
+		if _, ok := node.Attributes[key]; ok {
+			return true
+		} 
+		return false
+	}
+}
+
+func MatchAttributeSelector(key, value string) Selector {
 	return func(node *model.DOMNode) bool {
 		if attrVal, ok := node.Attributes[key]; ok {
 			return attrVal == value
