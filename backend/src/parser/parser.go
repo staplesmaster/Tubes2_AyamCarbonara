@@ -1,47 +1,29 @@
 package parser
 
-import ( "github.com/luis/Tubes2_AyamCarbonara/backend/src/format_token")
-
-type NodeType int
-
-const(
-	Element NodeType = iota
-	TextNode
-	DocumentNode
-)
-
-type DOMNode struct{
-	Type NodeType
-	TagName string
-	Content string
-	Attributes map[string]string
-	Children []*DOMNode
-	Parent *DOMNode
-	Depth int
-	Index int
-}
-
-
+import ( "github.com/luis/Tubes2_AyamCarbonara/backend/src/format_token"
+"github.com/luis/Tubes2_AyamCarbonara/backend/src/model")
 
 var nodeCounter int
 
-func ParseHTML(rawHTML string) (*DOMNode, error) {
+func ParseHTML(rawHTML string) (*model.DOMNode, error) {
 	index := 0
+	nodeCounter = 0
 	formatTokens := format_token.GetFormatToken(rawHTML)
-	root := &DOMNode{
-		Type:    DocumentNode,
+	root := &model.DOMNode{
+		Id:    nodeCounter,
 		TagName: "document",
 		Depth:   0,
 	}
+	nodeCounter++
 
-	var parseRecursive func(parent *DOMNode, depth int) ([]*DOMNode, error)
+	var parseRecursive func(parent *model.DOMNode, depth int) ([]*model.DOMNode, error)
 	
 	tagWOClosure := map[string]bool{
 		"img": true, "br": true, "hr": true, "input": true, "link": true, "meta": true,
 	}
 
-	parseRecursive = func(parent *DOMNode, depth int) ([]*DOMNode, error) {
-		var children []*DOMNode
+	parseRecursive = func(parent *model.DOMNode, depth int) ([]*model.DOMNode, error) {
+		var children []*model.DOMNode
 
 		for index < len(formatTokens) {
 			token := formatTokens[index]
@@ -55,22 +37,26 @@ func ParseHTML(rawHTML string) (*DOMNode, error) {
 			}
 
 			if token.Kind == format_token.FormatText {
-				node := &DOMNode{
-					Type:    TextNode,
+				node := &model.DOMNode{
+					Id:    nodeCounter,
+					Type: model.TextNode,
 					Content: token.Content,
 					Parent:  parent,
 					Depth:   depth,
 				}
+				nodeCounter++
 				children = append(children, node)
 				index++
 			} else if token.Kind == format_token.FormatOpeningTag {
-				newNode := &DOMNode{
-					Type:       Element,
+				newNode := &model.DOMNode{
+					Id:       nodeCounter,
+					Type: model.ElementNode,
 					TagName:    token.TagName,
 					Attributes: token.Attributes,
 					Parent:     parent,
 					Depth:      depth,
 				}
+				nodeCounter++
 				index++
 
 				if !tagWOClosure[newNode.TagName] && token.Content != "self-closing" {
@@ -91,29 +77,3 @@ func ParseHTML(rawHTML string) (*DOMNode, error) {
 	return root, err
 }
 
-// Helper: hitung max depth tree
-func MaxDepth(root *DOMNode) int {
-    if root == nil || len(root.Children) == 0 {
-        return root.Depth
-    }
-    max := 0
-    for _, child := range root.Children {
-        d := MaxDepth(child)
-        if d > max {
-            max = d
-        }
-    }
-    return max
-}
-
-// Helper: hitung total node
-func CountNodes(root *DOMNode) int {
-    if root == nil {
-        return 0
-    }
-    count := 1
-    for _, child := range root.Children {
-        count += CountNodes(child)
-    }
-    return count
-}
