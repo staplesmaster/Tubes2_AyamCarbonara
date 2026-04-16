@@ -9,16 +9,15 @@ import (
 )
 
 func BFS(node *model.DOMNode, filter selector.Selector) []*model.DOMNode {
-	var queue []*model.DOMNode
-	queue = append(queue, node)
+	queue := []*model.DOMNode{node}
+	result := make([]*model.DOMNode, 0, 32)
 
-	var result []*model.DOMNode
-	var current *model.DOMNode
+	head := 0
+	for head < len(queue) {
+		current := queue[head]
+		head++
 
-	for len(queue) > 0 {
-		current = queue[0]
 		queue = append(queue, current.Children...)
-		queue = queue[1:]
 
 		if (filter(current)) {
 			result = append(result, current)
