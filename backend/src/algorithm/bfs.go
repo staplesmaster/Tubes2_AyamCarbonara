@@ -8,8 +8,8 @@ import (
 	"github.com/luis/Tubes2_AyamCarbonara/backend/src/selector"
 )
 
-func BFS(node *model.DOMNode, filter selector.Selector) []*model.DOMNode {
-	queue := []*model.DOMNode{node}
+func BFS(root *model.DOMNode, filter selector.Selector) []*model.DOMNode {
+	queue := []*model.DOMNode{root}
 	result := make([]*model.DOMNode, 0, 32)
 
 	head := 0
@@ -33,7 +33,7 @@ func BFS(node *model.DOMNode, filter selector.Selector) []*model.DOMNode {
 	return result
 }
 
-func FastBFS(node *model.DOMNode, filter selector.Selector) []*model.DOMNode {
+func FastBFS(root *model.DOMNode, filter selector.Selector) []*model.DOMNode {
 	queue := make(chan *model.DOMNode, 100)
     resultChan := make(chan *model.DOMNode, 100)
 
@@ -59,7 +59,7 @@ func FastBFS(node *model.DOMNode, filter selector.Selector) []*model.DOMNode {
     }
 
     wg.Add(1)
-    queue <- node
+    queue <- root
 
     go func() {
         wg.Wait()
