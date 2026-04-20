@@ -24,7 +24,8 @@ func BFS(node *model.DOMNode, filter selector.Selector) []*model.DOMNode {
 		}
 
 		if head > 1024 {
-			queue = queue[head:]
+			copy(queue, queue[head:])
+			queue = queue[:len(queue)-head]
 			head = 0
 		}
 	}
