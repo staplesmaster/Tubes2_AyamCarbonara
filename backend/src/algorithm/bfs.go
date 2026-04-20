@@ -22,6 +22,11 @@ func BFS(node *model.DOMNode, filter selector.Selector) []*model.DOMNode {
 		if (filter(current)) {
 			result = append(result, current)
 		}
+
+		if head > 1024 {
+			queue = queue[head:]
+			head = 0
+		}
 	}
 
 	return result
