@@ -3,11 +3,11 @@ package parser
 import ( "github.com/luis/Tubes2_AyamCarbonara/backend/src/format_token"
 "github.com/luis/Tubes2_AyamCarbonara/backend/src/model")
 
-var nodeCounter int
+
 
 func ParseHTML(rawHTML string) (*model.DOMNode, error) {
 	index := 0
-	nodeCounter = 0
+	nodeCounter := 0
 	formatTokens := format_token.GetFormatToken(rawHTML)
 	root := &model.DOMNode{
 		Id:    nodeCounter,
@@ -33,7 +33,8 @@ func ParseHTML(rawHTML string) (*model.DOMNode, error) {
 					index++
 					return children, nil
 				}
-				return children, nil 
+				index++
+				continue // buat kasus <div> ayam </..> </div>
 			}
 
 			if token.Kind == format_token.FormatText {
@@ -48,6 +49,10 @@ func ParseHTML(rawHTML string) (*model.DOMNode, error) {
 				children = append(children, node)
 				index++
 			} else if token.Kind == format_token.FormatOpeningTag {
+				if token.TagName == "!--" {
+					index++
+					continue
+				}
 				newNode := &model.DOMNode{
 					Id:       nodeCounter,
 					Type: model.ElementNode,

@@ -37,7 +37,7 @@ func buildSelector(tokens []Token) (Selector, error) {
 			allowTagUniversal = false
 			allowCombinator = true
 		case CLASS:
-			currentCompound = And(TagSelector(token.Value), currentCompound)
+			currentCompound = And(ClassSelector(token.Value), currentCompound)
 			allowTagUniversal = false
 			allowCombinator = true
 		case ID:
@@ -45,7 +45,7 @@ func buildSelector(tokens []Token) (Selector, error) {
 			allowTagUniversal = false
 			allowCombinator = true
 		case ATTR:
-			vals := strings.Split(token.Value, "")
+			vals := strings.Split(token.Value, "=")
 			if len(vals) > 1 {
 				currentCompound = And(MatchAttributeSelector(vals[0], vals[1]), currentCompound)
 			} else {

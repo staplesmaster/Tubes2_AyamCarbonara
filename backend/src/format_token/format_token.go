@@ -1,8 +1,10 @@
 package format_token
 
 
-import("github.com/luis/Tubes2_AyamCarbonara/backend/src/token"
-"fmt")
+import(
+	"github.com/luis/Tubes2_AyamCarbonara/backend/src/token"
+	"fmt"
+)
 
 type FormatTokenKind int
 
