@@ -1,21 +1,22 @@
 package model
 
 type NodeType int
+
 const (
-    ElementNode NodeType = iota
-    TextNode
-    DocumentNode
+	ElementNode NodeType = iota
+	TextNode
+	DocumentNode
 )
 
 type DOMNode struct {
-    Id         int
-    Type       NodeType
-    TagName    string
-    Content    string 
-    Attributes map[string]string
-    Children   []*DOMNode
-    Parent     *DOMNode
-    Depth      int
+	Id         int               `json:"id"`
+	Type       NodeType          `json:"-"`
+	TagName    string            `json:"tag"`
+	Content    string            `json:"content,omitempty"`
+	Attributes map[string]string `json:"attrs,omitempty"`
+	Children   []*DOMNode        `json:"children"`
+	Parent     *DOMNode          `json:"-"`
+	Depth      int               `json:"-"`
 }
 
 type TraversalRequest struct {
@@ -37,11 +38,12 @@ type LCARequest struct {
 	NodeB     int    `json:"nodeB"`
 }
 
-type APINode struct {
-	ID       int               `json:"id"`
-	Tag      string            `json:"tag"`
-	Attrs    map[string]string `json:"attrs"`
-	Children []APINode         `json:"children"`
+type LCAStep struct {
+	Step          int   `json:"step"`
+	NodeA         int   `json:"nodeA"`
+	NodeB         int   `json:"nodeB"`
+	ActiveNodeIDs []int `json:"activeNodeIds"`
+	LCANodeID     *int  `json:"lcaNodeId,omitempty"`
 }
 
 type TraversalStep struct {
@@ -55,10 +57,10 @@ type TraversalStep struct {
 }
 
 type TraversalStats struct {
-	Visited  int   `json:"visited"`
-	Matched  int   `json:"matched"`
-	MaxDepth int   `json:"maxDepth"`
-	Elapsed  int64 `json:"elapsedMs"`
+	Visited  int     `json:"visited"`
+	Matched  int     `json:"matched"`
+	MaxDepth int     `json:"maxDepth"`
+	Elapsed  float64 `json:"elapsedMs"`
 }
 
 type ErrorResponse struct {
@@ -68,7 +70,7 @@ type ErrorResponse struct {
 
 type TraverseResponse struct {
 	Success        bool            `json:"success"`
-	Tree           APINode         `json:"tree"`
+	Tree           *DOMNode        `json:"tree"`
 	Steps          []TraversalStep `json:"steps"`
 	MatchedNodeIDs []int           `json:"matchedNodeIds"`
 	Stats          TraversalStats  `json:"stats"`
@@ -79,8 +81,9 @@ type TraverseResponse struct {
 }
 
 type LCAResponse struct {
-	Success bool   `json:"success"`
-	NodeID  int    `json:"nodeId"`
-	Tag     string `json:"tag"`
-	Label   string `json:"label"`
+	Success bool      `json:"success"`
+	NodeID  int       `json:"nodeId"`
+	Tag     string    `json:"tag"`
+	Label   string    `json:"label"`
+	Steps   []LCAStep `json:"steps"`
 }
