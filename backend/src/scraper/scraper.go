@@ -33,7 +33,7 @@ func FetchHTML( url string) (*ScrapeRes, error){
 
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK{
-		return nil, fmt.Errorf("status tidak ok: %w", resp.StatusCode)
+		return nil, fmt.Errorf("status tidak ok: %d", resp.StatusCode)
 	
 	}
 

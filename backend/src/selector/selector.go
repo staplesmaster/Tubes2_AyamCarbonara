@@ -8,17 +8,23 @@ import (
 
 type Selector func(node *model.DOMNode) bool
 
+func isElement(node *model.DOMNode) bool {
+	return node != nil && node.Type == model.ElementNode
+}
+
 func TagSelector(tag string) Selector {
 	return func(node *model.DOMNode) bool {
-		return node.TagName == tag
+		return isElement(node) && node.TagName == tag
 	}
 }
 
 func ClassSelector(class string) Selector {
 	return func(node *model.DOMNode) bool {
+		if !isElement(node) {
+			return false
+		}
 		if classGroup, ok := node.Attributes["class"]; ok {
-			classes := strings.Split(classGroup, " ")
-			for _, c := range classes {
+			for _, c := range strings.Fields(classGroup) {
 				if c == class {
 					return true
 				}
@@ -30,6 +36,9 @@ func ClassSelector(class string) Selector {
 
 func IDSelector(id string) Selector {
 	return func(node *model.DOMNode) bool {
+		if !isElement(node) {
+			return false
+		}
 		if nodeId, ok := node.Attributes["id"]; ok {
 			return nodeId == id
 		}
@@ -39,7 +48,7 @@ func IDSelector(id string) Selector {
 
 func UniversalSelector() Selector {
 	return func(node *model.DOMNode) bool {
-		return true
+		return isElement(node)
 	}
 }
 
@@ -56,18 +65,24 @@ func And(selectors ...Selector) Selector {
 
 func HasAttributeSelector(key string) Selector {
 	return func(node *model.DOMNode) bool {
+		if !isElement(node) {
+			return false
+		}
 		if _, ok := node.Attributes[key]; ok {
 			return true
-		} 
+		}
 		return false
 	}
 }
 
 func MatchAttributeSelector(key, value string) Selector {
 	return func(node *model.DOMNode) bool {
+		if !isElement(node) {
+			return false
+		}
 		if attrVal, ok := node.Attributes[key]; ok {
 			return attrVal == value
-		} 
+		}
 		return false
 	}
 }

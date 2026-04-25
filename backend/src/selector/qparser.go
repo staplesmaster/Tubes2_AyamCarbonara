@@ -58,9 +58,19 @@ func buildSelector(tokens []Token) (Selector, error) {
 	if !allowCombinator {
 		return nil, errors.New("hanging last combinator")
 	}
-	i := len(combinators) - 1
-	finalSelector := compounds[i]
-	for j := i; j >= 0; j-- {
+	compounds = append(compounds, currentCompound)
+
+	if len(combinators) == 0 {
+		return compounds[0], nil
+	}
+
+	if len(compounds) != len(combinators)+1 {
+		return nil, errors.New("invalid selector structure")
+	}
+
+	finalSelector := compounds[len(compounds)-1]
+
+	for j := len(combinators) - 1; j >= 0; j-- {
 		switch combinators[j].Value {
 		case " ":
 			finalSelector = Descendant(compounds[j], finalSelector)
@@ -70,8 +80,11 @@ func buildSelector(tokens []Token) (Selector, error) {
 			finalSelector = AdjacentSibling(compounds[j], finalSelector)
 		case "~":
 			finalSelector = GeneralSibling(compounds[j], finalSelector)
+		default:
+			return nil, errors.New("unknown combinator")
 		}
 	}
+
 	return finalSelector, nil
 }
 
