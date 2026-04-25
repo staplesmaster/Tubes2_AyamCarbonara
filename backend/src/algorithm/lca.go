@@ -3,12 +3,12 @@ package algorithm
 import "github.com/luis/Tubes2_AyamCarbonara/backend/src/model"
 
 func FindLCA(root *model.DOMNode, id1, id2 int) *model.DOMNode {
-	search1 := FastBFS(root, func(node *model.DOMNode) bool {return node.Id == id1})
-	if (search1 == nil) {
+	search1 := BFS(root, func(node *model.DOMNode) bool {return node.Id == id1})
+	if len(search1) == 0 {
 		return  nil
 	}
-	search2 := FastBFS(root, func(node *model.DOMNode) bool {return node.Id == id2})
-	if (search2 == nil) {
+	search2 := BFS(root, func(node *model.DOMNode) bool { return node.Id == id2 })
+	if len(search2) == 0 {
 		return  nil
 	}
 	return FindLCAByNode(search1[0], search2[0])
