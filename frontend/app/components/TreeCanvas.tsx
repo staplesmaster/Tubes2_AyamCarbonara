@@ -220,7 +220,7 @@ export default function TreeCanvas({ tree, steps, lcaSource }: TreeCanvasProps) 
           onMouseLeave={() => setTooltip(null)}
         >
           <g transform={`scale(${zoom})`}>
-            {/* Edges */}
+      
             {edges.map((e, i) => (
               <line
                 key={i}
@@ -233,7 +233,7 @@ export default function TreeCanvas({ tree, steps, lcaSource }: TreeCanvasProps) 
               />
             ))}
 
-            {/* Nodes */}
+
             {allNodes.map((node) => {
               const pos = positions.get(node.id ?? 0);
               if (!pos) return null;

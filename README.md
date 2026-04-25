@@ -122,8 +122,8 @@ Lowest Common Ancestor (LCA) mencari **node leluhur terdalam yang sama** dari du
 
 **Clone repository**
 ```bash
-git clone https://github.com/[username]/Tubes2_[NamaKelompok].git
-cd Tubes2_[NamaKelompok]
+git clone git@github.com:staplesmaster/Tubes2_AyamCarbonara.git
+cd Tubes2_AyamCarbonara
 ```
 
 **Jalankan Backend**
@@ -147,8 +147,8 @@ Frontend berjalan di `http://localhost:3000`
 ### Cara 2: Docker 
 
 ```bash
-git clone https://github.com/[username]/Tubes2_AyamBakakak.git
-cd Tubes2_AyamBakakak
+git clone git@github.com:staplesmaster/Tubes2_AyamCarbonara.git
+cd Tubes2_AyamCarbonara
 docker compose up --build
 ```
 
