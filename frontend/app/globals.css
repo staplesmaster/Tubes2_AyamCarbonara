@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-ui);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --sidebar: 290px;
+  --bg: #0f0f11;
+  --bg2: #16161a;
+  --bg3: #1e1e24;
+  --border: rgba(255, 255, 255, 0.08);
+  --border2: rgba(255, 255, 255, 0.14);
+  --text: #e8e8f0;
+  --text2: #8888a0;
+  --text3: #55556a;
+  --accent-bfs: #378add;
+  --accent-dfs: #1d9e75;
+  --accent-lca: #d4537e;
+  --current: #ef9f27;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #8b8b95 var(--bg2);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #8b8b95;
+  border: 2px solid var(--bg2);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--bg2);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: var(--font-ui), sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
 }

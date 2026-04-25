@@ -1,0 +1,16 @@
+.app {
+  display: flex;
+  height: 100vh;
+  color: var(--text);
+  background: var(--bg);
+  font-family: var(--font-ui), sans-serif;
+}
+
+.mainPanel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+}

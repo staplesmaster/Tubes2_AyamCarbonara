@@ -1,0 +1,157 @@
+.emptyState {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text3);
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+}
+
+.shell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.toolbar {
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  color: var(--text3);
+}
+
+.toolBtn,
+.zoomBtn,
+.lcaBtn {
+  font-family: var(--font-mono), monospace;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.toolBtn {
+  padding: 5px 10px;
+  font-size: 10px;
+  background: var(--bg3);
+  color: var(--text2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.playBtn {
+  padding: 5px 14px;
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.dangerBtn,
+.playing {
+  background: rgba(212, 83, 126, 0.12);
+  color: #ed93b1;
+  border-color: rgba(212, 83, 126, 0.35);
+}
+
+.playing {
+  background: rgba(212, 83, 126, 0.18);
+  border-color: rgba(212, 83, 126, 0.5);
+}
+
+.toolBtn:disabled,
+.lcaBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.stepSlider {
+  width: 120px;
+  accent-color: var(--text2);
+}
+
+.speedLabel {
+  margin-left: auto;
+}
+
+.speedSlider {
+  width: 72px;
+  accent-color: var(--text2);
+}
+
+.lcaBtn {
+  padding: 5px 10px;
+  font-size: 9px;
+  background: var(--bg3);
+  color: var(--text2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.07em;
+}
+
+.lcaActive {
+  background: rgba(212, 83, 126, 0.15);
+  color: #ed93b1;
+  border-color: rgba(212, 83, 126, 0.5);
+}
+
+.zoomBtn {
+  padding: 5px 9px;
+  font-size: 10px;
+  background: var(--bg3);
+  color: var(--text2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.06em;
+}
+
+.zoomValue {
+  min-width: 38px;
+  text-align: center;
+}
+
+.canvas {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  background: var(--bg);
+  scrollbar-color: #8b8b95 var(--bg2);
+}
+
+.svg {
+  display: block;
+}
+
+.nodeGroup {
+  cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  background: var(--bg2);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-family: var(--font-mono), monospace;
+  color: var(--text);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.lcaStatus {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  background: var(--bg2);
+  border: 1px solid rgba(212, 83, 126, 0.35);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-family: var(--font-mono), monospace;
+  color: #ed93b1;
+}

@@ -1,0 +1,190 @@
+.sidebar {
+  width: var(--sidebar);
+  min-width: var(--sidebar);
+  background: var(--bg2);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.subtitle {
+  margin-top: 3px;
+  font-size: 10px;
+  color: var(--text3);
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.06em;
+}
+
+.section,
+.runSection {
+  padding: 12px 14px;
+}
+
+.section {
+  border-bottom: 1px solid var(--border);
+}
+
+.label {
+  margin-bottom: 8px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text3);
+  font-family: var(--font-mono), monospace;
+}
+
+.input,
+.textarea,
+.fileInput,
+.numberInput {
+  font-size: 11px;
+  font-family: var(--font-mono), monospace;
+  background: var(--bg3);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  color: var(--text);
+  outline: none;
+}
+
+.input,
+.textarea,
+.fileInput {
+  width: 100%;
+  padding: 7px 10px;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.fileInput {
+  margin-top: 8px;
+  color: var(--text2);
+  cursor: pointer;
+}
+
+.fileHint {
+  margin-top: 6px;
+  font-size: 10px;
+  font-family: var(--font-mono), monospace;
+  color: #5dcaa5;
+  word-break: break-word;
+}
+
+.buttonGroup,
+.limitRow {
+  display: flex;
+  gap: 5px;
+}
+
+.limitRow {
+  align-items: center;
+  gap: 6px;
+}
+
+.smallText {
+  font-size: 10px;
+  font-family: var(--font-mono), monospace;
+  color: var(--text2);
+}
+
+.numberInput {
+  width: 56px;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.numberInput:disabled {
+  opacity: 0.35;
+}
+
+.toggleBtn,
+.allBtn {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 10px;
+  font-weight: 500;
+  font-family: var(--font-mono), monospace;
+  background: var(--bg3);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  color: var(--text2);
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.toggleBtn:hover,
+.allBtn:hover {
+  color: var(--text);
+  border-color: var(--border2);
+}
+
+.activeBfs {
+  background: rgba(55, 138, 221, 0.15);
+  border-color: rgba(55, 138, 221, 0.5);
+  color: #85b7eb;
+}
+
+.activeDfs {
+  background: rgba(29, 158, 117, 0.15);
+  border-color: rgba(29, 158, 117, 0.5);
+  color: #5dcaa5;
+}
+
+.allBtn {
+  letter-spacing: 0.05em;
+}
+
+.allActive {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+.runBtn {
+  width: 100%;
+  padding: 9px;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.1em;
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.runBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.error {
+  margin-top: 8px;
+  font-size: 10px;
+  font-family: var(--font-mono), monospace;
+  color: #ed93b1;
+}
