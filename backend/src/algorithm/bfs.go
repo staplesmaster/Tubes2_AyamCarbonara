@@ -3,7 +3,6 @@ package algorithm
 import (
 	"sync"
 	"time"
-    "runtime"
 
 	"github.com/luis/Tubes2_AyamCarbonara/backend/src/model"
 	"github.com/luis/Tubes2_AyamCarbonara/backend/src/selector"
@@ -63,90 +62,48 @@ func BFSWithSteps(root *model.DOMNode, sel selector.Selector) ([]model.Traversal
 }
 
 func FastBFS(root *model.DOMNode, filter selector.Selector) []*model.DOMNode {
-	queue := make(chan *model.DOMNode, 100)
-    resultChan := make(chan *model.DOMNode, 100)
+	if root == nil {
+		return nil
+	}
 
-    var wg sync.WaitGroup
+	currentLevel := []*model.DOMNode{root}
+	result := make([]*model.DOMNode, 0, 32)
 
-    worker := func() {
-        for n := range queue {
-            if filter(n) {
-                resultChan <- n
-            }
+	for len(currentLevel) > 0 {
+		nextLevelChunks := make([][]*model.DOMNode, len(currentLevel))
+		matches := make([]*model.DOMNode, len(currentLevel))
 
-            for _, child := range n.Children {
-                wg.Add(1)
-                queue <- child
-            }
-            wg.Done()
-        }
-    }
+		var wg sync.WaitGroup
+		for i, node := range currentLevel {
+			wg.Add(1)
+			go func(i int, node *model.DOMNode) {
+				defer wg.Done()
 
-    cpu := runtime.NumCPU()
-    for i := 0; i < cpu; i++ {
-        go worker()
-    }
+				if filter(node) {
+					matches[i] = node
+				}
+				nextLevelChunks[i] = node.Children
+			}(i, node)
+		}
+		wg.Wait()
 
-    wg.Add(1)
-    queue <- root
+		for _, match := range matches {
+			if match != nil {
+				result = append(result, match)
+			}
+		}
 
-    go func() {
-        wg.Wait()
-        close(queue)
-        close(resultChan)
-    }()
+		nextLevelSize := 0
+		for _, children := range nextLevelChunks {
+			nextLevelSize += len(children)
+		}
 
-    var result []*model.DOMNode
-    for r := range resultChan {
-        result = append(result, r)
-    }
+		nextLevel := make([]*model.DOMNode, 0, nextLevelSize)
+		for _, children := range nextLevelChunks {
+			nextLevel = append(nextLevel, children...)
+		}
+		currentLevel = nextLevel
+	}
 
-    return result
+	return result
 }
-
-// func FastBFS(root *model.DOMNode, filter selector.Selector) []*model.DOMNode {
-// 	if root == nil {
-// 		return nil
-// 	}
-
-// 	currentLevel := []*model.DOMNode{root}
-// 	result := make([]*model.DOMNode, 0, 32)
-
-// 	for len(currentLevel) > 0 {
-// 		nextLevelChunks := make([][]*model.DOMNode, len(currentLevel))
-// 		matches := make([]*model.DOMNode, len(currentLevel))
-
-// 		var wg sync.WaitGroup
-// 		for i, node := range currentLevel {
-// 			wg.Add(1)
-// 			go func(i int, node *model.DOMNode) {
-// 				defer wg.Done()
-
-// 				if filter(node) {
-// 					matches[i] = node
-// 				}
-// 				nextLevelChunks[i] = node.Children
-// 			}(i, node)
-// 		}
-// 		wg.Wait()
-
-// 		for _, match := range matches {
-// 			if match != nil {
-// 				result = append(result, match)
-// 			}
-// 		}
-
-// 		nextLevelSize := 0
-// 		for _, children := range nextLevelChunks {
-// 			nextLevelSize += len(children)
-// 		}
-
-// 		nextLevel := make([]*model.DOMNode, 0, nextLevelSize)
-// 		for _, children := range nextLevelChunks {
-// 			nextLevel = append(nextLevel, children...)
-// 		}
-// 		currentLevel = nextLevel
-// 	}
-
-// 	return result
-// }
