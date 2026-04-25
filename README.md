@@ -5,17 +5,6 @@ Institut Teknologi Bandung
 
 ---
 
-## Daftar Isi
-
-- [Deskripsi Singkat](#deskripsi-singkat)
-- [Algoritma BFS dan DFS](#algoritma-bfs-dan-dfs)
-- [Fitur](#fitur)
-- [Requirement](#requirement)
-- [Instalasi dan Menjalankan Program](#instalasi-dan-menjalankan-program)
-- [Cara Penggunaan](#cara-penggunaan)
-- [Author](#author)
-
----
 
 ## Deskripsi Singkat
 
@@ -107,7 +96,6 @@ Lowest Common Ancestor (LCA) mencari **node leluhur terdalam yang sama** dari du
 - Preprocessing: **O(N log N)**
 - Query per pasangan node: **O(log N)**
 
-
 ---
 
 ## Requirement
@@ -159,8 +147,8 @@ Frontend berjalan di `http://localhost:3000`
 ### Cara 2: Docker 
 
 ```bash
-git clone https://github.com/[username]/Tubes2_[NamaKelompok].git
-cd Tubes2_[NamaKelompok]
+git clone https://github.com/[username]/Tubes2_AyamBakakak.git
+cd Tubes2_AyamBakakak
 docker compose up --build
 ```
 
@@ -170,20 +158,6 @@ Untuk menghentikan:
 ```bash
 docker compose down
 ```
-
----
-
-### Cara 3: Akses Online (Azure)
-
-Aplikasi sudah di-deploy dan dapat diakses di:
-```
-
-```
-
----
-
-## Cara Penggunaan
-
 
 ---
 
@@ -202,16 +176,16 @@ Aplikasi sudah di-deploy dan dapat diakses di:
 
 | No | Poin | Ya | Tidak |
 |----|------|----|-------|
-| 1 | Aplikasi berhasil di kompilasi tanpa kesalahan | [ ] | [ ] |
-| 2 | Aplikasi berhasil dijalankan | [ ] | [ ] |
-| 3 | Aplikasi dapat menerima input URL web, pilihan algoritma, CSS selector, dan jumlah hasil | [ ] | [ ] |
-| 4 | Aplikasi dapat melakukan scraping terhadap web pada input | [ ] | [ ] |
-| 5 | Aplikasi dapat menampilkan visualisasi pohon DOM | [ ] | [ ] |
-| 6 | Aplikasi dapat menelusuri pohon DOM dan menampilkan hasil penelusuran | [ ] | [ ] |
-| 7 | Aplikasi dapat menandai jalur tempuh oleh algoritma | [ ] | [ ] |
-| 8 | Aplikasi dapat menyimpan jalur yang ditempuh algoritma dalam traversal log | [ ] | [ ] |
-| 9 | [Bonus] Membuat video | [ ] | [ ] |
+| 1 | Aplikasi berhasil di kompilasi tanpa kesalahan | [✔] | [ ] |
+| 2 | Aplikasi berhasil dijalankan | [✔] | [ ] |
+| 3 | Aplikasi dapat menerima input URL web, pilihan algoritma, CSS selector, dan jumlah hasil | [✔] | [ ] |
+| 4 | Aplikasi dapat melakukan scraping terhadap web pada input | [✔] | [ ] |
+| 5 | Aplikasi dapat menampilkan visualisasi pohon DOM | [✔] | [ ] |
+| 6 | Aplikasi dapat menelusuri pohon DOM dan menampilkan hasil penelusuran | [✔] | [ ] |
+| 7 | Aplikasi dapat menandai jalur tempuh oleh algoritma | [✔] | [ ] |
+| 8 | Aplikasi dapat menyimpan jalur yang ditempuh algoritma dalam traversal log | [✔] | [ ] |
+| 9 | [Bonus] Membuat video | [✔] | [ ] |
 | 10 | [Bonus] Deploy aplikasi | [ ] | [ ] |
-| 11 | [Bonus] Implementasi animasi pada penelusuran pohon | [ ] | [ ] |
-| 12 | [Bonus] Implementasi multithreading | [ ] | [ ] |
-| 13 | [Bonus] Implementasi LCA Binary Lifting | [ ] | [ ] |
+| 11 | [Bonus] Implementasi animasi pada penelusuran pohon | [✔] | [ ] |
+| 12 | [Bonus] Implementasi multithreading | [✔] | [ ] |
+| 13 | [Bonus] Implementasi LCA Binary Lifting | [✔] | [ ] |
