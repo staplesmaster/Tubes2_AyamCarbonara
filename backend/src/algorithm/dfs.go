@@ -31,6 +31,34 @@ func DFS(root *model.DOMNode, filter selector.Selector) []*model.DOMNode {
 	return result
 }
 
+func DFSWithSteps(root *model.DOMNode, sel selector.Selector) ([]model.TraversalStep, []int, model.TraversalStats) {
+	start := time.Now()
+
+	var steps []model.TraversalStep
+	var matchedIDs []int
+	visited, matched, maxDepth, step := 0, 0, 0, 0
+
+	var dfs func(n *model.DOMNode)
+	dfs = func(n *model.DOMNode) {
+		visitStep(n, sel, &step, &visited, &matched, &maxDepth, &steps, &matchedIDs)
+
+		for _, c := range n.Children {
+			dfs(c)
+		}
+	}
+
+	dfs(root)
+
+	stats := model.TraversalStats{
+		Visited:  visited,
+		Matched:  matched,
+		MaxDepth: maxDepth,
+		Elapsed:  float64(time.Since(start).Microseconds()) / 1000,
+	}
+
+	return steps, matchedIDs, stats
+}
+
 type Deque struct {
 	mu    sync.Mutex
 	items []*model.DOMNode

@@ -1,8 +1,10 @@
 package format_token
 
 
-import("github.com/luis/Tubes2_AyamCarbonara/backend/src/token"
-"fmt")
+import(
+	"github.com/luis/Tubes2_AyamCarbonara/backend/src/token"
+	"fmt"
+)
 
 type FormatTokenKind int
 
@@ -22,7 +24,7 @@ type FormatToken struct{
 func GetFormatToken(rawHTML string) []FormatToken {
 	tokens, err := token.Tokenize(rawHTML)
 	if err != nil{
-		fmt.Printf("Terjadi error saat tokenize: %w", err)
+		fmt.Printf("Terjadi error saat tokenize: %v\n", err)
 	}
 	var formatTokens []FormatToken
 	i := 0

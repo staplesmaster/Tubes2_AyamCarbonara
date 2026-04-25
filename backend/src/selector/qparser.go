@@ -37,7 +37,7 @@ func buildSelector(tokens []Token) (Selector, error) {
 			allowTagUniversal = false
 			allowCombinator = true
 		case CLASS:
-			currentCompound = And(TagSelector(token.Value), currentCompound)
+			currentCompound = And(ClassSelector(token.Value), currentCompound)
 			allowTagUniversal = false
 			allowCombinator = true
 		case ID:
@@ -45,7 +45,7 @@ func buildSelector(tokens []Token) (Selector, error) {
 			allowTagUniversal = false
 			allowCombinator = true
 		case ATTR:
-			vals := strings.Split(token.Value, "")
+			vals := strings.Split(token.Value, "=")
 			if len(vals) > 1 {
 				currentCompound = And(MatchAttributeSelector(vals[0], vals[1]), currentCompound)
 			} else {
@@ -58,20 +58,31 @@ func buildSelector(tokens []Token) (Selector, error) {
 	if !allowCombinator {
 		return nil, errors.New("hanging last combinator")
 	}
-	i := len(combinators) - 1
-	finalSelector := compounds[i]
-	for j := i; j >= 0; j-- {
+	compounds = append(compounds, currentCompound)
+
+	if len(combinators) == 0 {
+		return compounds[0], nil
+	}
+
+	if len(compounds) != len(combinators)+1 {
+		return nil, errors.New("invalid selector structure")
+	}
+
+	finalSelector := compounds[0]
+
+	for j := 0; j < len(combinators); j++ {
 		switch combinators[j].Value {
 		case " ":
-			finalSelector = Descendant(compounds[j], finalSelector)
+			finalSelector = Descendant(finalSelector, compounds[j+1])
 		case ">":
-			finalSelector = Child(compounds[j], finalSelector)
+			finalSelector = Child(finalSelector, compounds[j+1])
 		case "+":
-			finalSelector = AdjacentSibling(compounds[j], finalSelector)
+			finalSelector = AdjacentSibling(finalSelector, compounds[j+1])
 		case "~":
-			finalSelector = GeneralSibling(compounds[j], finalSelector)
+			finalSelector = GeneralSibling(finalSelector, compounds[j+1])
 		}
 	}
+
 	return finalSelector, nil
 }
 

@@ -1,0 +1,56 @@
+.panel,
+.emptyPanel {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+}
+
+.panel {
+  min-height: 180px;
+  max-height: 260px;
+  overflow: auto;
+  line-height: 1.65;
+}
+
+.emptyPanel {
+  color: var(--text3);
+}
+
+.label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+
+.entry {
+  display: flex;
+  gap: 6px;
+  padding: 1px 0;
+}
+
+.visited {
+  color: #85b7eb;
+}
+
+.matched {
+  color: #5dcaa5;
+}
+
+.step {
+  color: var(--text3);
+  min-width: 24px;
+  text-align: right;
+}
+
+.tag {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.status {
+  opacity: 0.85;
+}
